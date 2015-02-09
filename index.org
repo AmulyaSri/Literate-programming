@@ -1,0 +1,70 @@
+#+Title: Introduction to Literate Programming
+#+Author: Amulya Sri
+#+Date: 08-02-2015
+#+Email: amulya@vlabs.ac.in
+
+* Literate Programming
+Literate programming is an approach to programming introduced by
+Donald Knuth in which a program is given as an explanation of the
+program logic in a natural language, such as English, with snippets of
+macros and traditional source code.
+
+* Prerequisites 
+
+Emacs24 (editor installed)
+
+* Procedure to bable the code in emacs
+
+*Step 1*
+
+Open the file in emacs.
+
+#+BEGIN_EXAMPLE
+emacs <fileName>
+#+END_EXAMPLE
+
+*Step 2*
+
+Include export options using,
+#+BEGIN_EXAMPLE
+M-x org-insert-export-options-template
+#+END_EXAMPLE
+
+*Step 3*
+Include the properties given below, 
+#+BEGIN_EXAMPLE
+#+PROPERTY: session *scratch*
+#+PROPERTY: results output
+#+PROPERTY: tangle <fileName>
+#+PROPERTY: exports code
+#+END_EXAMPLE
+
+and edit the fileName with appropriate fileName(say, helloWorld.c,
+helloWorld.py)
+
+*Step 4*
+Write the documentation along with code embedded in =#+begin_src python= and =#+end_src python=
+
+*Step 5*
+We can extract the code from the document with the help of the following command.
+#+BEGIN_EXAMPLE
+M-x org-babel-tangle-file
+#+END_EXAMPLE
+
+Input the fileName(helloWorld.org) when prompted.
+
+*Step 6* We can write =makefile= to automate the process of tangling
+the code. The =makefile= below, can give us the source code files.
+
+#+BEGIN_SRC sh
+ORG=*.org
+all:
+        emacs $(ORG) --batch -f org-babel-tangle-file --kill
+
+#+END_SRC
+
+*Step 7*
+Run the =makefile= using
+#+BEGIN_EXAMPLE
+make
+#+END_EXAMPLE
